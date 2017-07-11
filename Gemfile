@@ -39,7 +39,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'cowsay'
 
-gem 'faker'
+gem 'faker', github: 'stympy/faker'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

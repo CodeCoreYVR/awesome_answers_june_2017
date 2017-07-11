@@ -1,4 +1,12 @@
 class QuestionsController < ApplicationController
+  # `before_action` can be used to run before any action in a controller.
+  # The second argument is a symbol named after the method we would to run.
+  # In this example, the before_action calls the find_question before say
+  # the index, or new, etc.
+  before_action :find_question, only: [:edit, :destroy, :show, :update]
+  # We can filter which methods the `before_action` will be called
+  # by proving an `only:` argument giving an array symbols named after the actions.
+  # There is also `except:`.
 
   def index
     @questions = Question.order(created_at: :desc)
@@ -16,13 +24,9 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = Question.find params[:id]
   end
 
   def update
-    @question = Question.find params[:id]
-    question_params = params.require(:question).permit(:title, :body)
-
     if @question.update question_params
       redirect_to question_path(@question)
     else
@@ -31,13 +35,16 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question = Question.find params[:id]
     @question.destroy
     redirect_to questions_path
   end
 
   def show
-    @question = Question.find params[:id]
+    @answer = Answer.new
+    # Using association methods just builds queries, meaning that
+    # we can continue chaining more and more query methods such order, limit, offset, where
+    # , etc
+    @answers = @question.answers.order(created_at: :desc)
   end
 
   # The Create action is used to handle form submissions from the New
@@ -52,16 +59,6 @@ class QuestionsController < ApplicationController
     # the debugger REPL. Type `exit` to leave byebug.
     # byebug
 
-    question_params = params.require(:question).permit(:title, :body)
-    # The params object is avaible in all controllers and it gives you
-    # access to all the data coming from a form or url params
-
-    # Require is used to get a nested hashed with the given symbol
-    # inside of the params object (in this case :question)
-
-    # Every input field of a form must be permitted individiually
-    # otherwise rails will throw an error. This is to prevent users
-    # from creating their fields
     @question = Question.new question_params
 
     if @question.save
@@ -74,6 +71,24 @@ class QuestionsController < ApplicationController
       # render `create.html.erb`
       render :new
     end
+  end
+
+  private
+  def question_params
+    params.require(:question).permit(:title, :body)
+    # The params object is avaible in all controllers and it gives you
+    # access to all the data coming from a form or url params
+
+    # Require is used to get a nested hashed with the given symbol
+    # inside of the params object (in this case :question)
+
+    # Every input field of a form must be permitted individiually
+    # otherwise rails will throw an error. This is to prevent users
+    # from creating their fields
+  end
+
+  def find_question
+    @question = Question.find params[:id]
   end
 end
 

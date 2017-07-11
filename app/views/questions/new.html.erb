@@ -19,6 +19,8 @@ In this case, the url for the `create` action to `questions` which is the
 </div>
 <% end %>
 
+<%= errors_for @question %>
+
 <%= form_for @question do |f| %>
   <div>
     <%= f.label :title %>

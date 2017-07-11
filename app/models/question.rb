@@ -1,4 +1,31 @@
 class Question < ApplicationRecord
+  # Like `belongs_to`, `has_many` tells Rails that Question is associated to
+  # the Answer model.
+  has_many :answers, dependent: :destroy
+  # `dependent: :destroy` will delete all associated answers to the question
+  # before the question is deleted.
+
+  # `dependent: :nullify` will update the `quesiton_id` in all associated answers
+  # to `NULL` before the is deleted.
+
+  # `has_many` adds many convenience instance methods to the model:
+  #  answers
+  #  answers<<(object, ...)
+  #  answers.delete(object, ...)
+  #  answers.destroy(object, ...)
+  #  answers=(objects)
+  #  answers_ids
+  #  answers_ids=(ids)
+  #  answers.clear
+  #  answers.empty?
+  #  answers.size
+  #  answers.find(...)
+  #  answers.where(...)
+  #  answers.exists?(...)
+  #  answers.build(attributes = {}, ...)
+  #  answers.create(attributes = {})
+  #  answers.create!(attributes = {})
+
   # we can define validations here, validations will be called before saving
   # or before creating a record and will prevent the saving or creation from
   # happening if the validation rules are not met.

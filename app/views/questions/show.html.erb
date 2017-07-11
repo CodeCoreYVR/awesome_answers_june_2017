@@ -7,3 +7,39 @@ Javascript to mimick a delete request to the server %>
 <%= link_to 'Delete',
   question_path(@question),
   method: :delete %>
+
+<h2>Answers</h2>
+
+<%# If we want to create a form for a resource that is nested inside another,
+we must give `form_for` the resources in array in the order of parent to descendant
+like below. This will create a `form` with `question_answers_path(@question)` for
+its `action` attribute. Inspect this form to know more! %>
+
+<!-- <% unless @answer.errors.empty? %>
+<div>
+  <%= @answer.errors.full_messages.join(', ') %>
+</div>
+<% end %> -->
+
+<%= errors_for @answer %>
+
+<%= form_for [@question, @answer] do |f| %>
+  <div>
+    <%= f.text_area :body %>
+  </div>
+  <%= f.submit %>
+<% end %>
+
+<ul class='answer-list'>
+<% @answers.each do |answer| %>
+  <li>
+    <p><%= answer.body %></p>
+    <p>
+      <strong>Created at:</strong> <%= answer.created_at.to_formatted_s(:long) %>
+      <%= link_to 'Delete', question_answer_path(@question, answer),
+        method: :delete, data: { confirm: 'Are you sure?'} %>
+    </p>
+    <%# https://apidock.com/rails/ActiveSupport/CoreExtensions/DateTime/Conversions/to_formatted_s %>
+  </li>
+<% end %>
+</ul>
