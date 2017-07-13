@@ -1,12 +1,16 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.body %></p>
 
-<%= link_to 'Edit', edit_question_path(@question) %>
-<%# When you use `method: :delete`, Rails will use
-Javascript to mimick a delete request to the server %>
-<%= link_to 'Delete',
-  question_path(@question),
-  method: :delete %>
+<p><strong>Author: </strong> <%= @question.user&.full_name %></p>
+
+<% if user_signed_in? %>
+  <%= link_to 'Edit', edit_question_path(@question) %>
+  <%# When you use `method: :delete`, Rails will use
+  Javascript to mimick a delete request to the server %>
+  <%= link_to 'Delete',
+    question_path(@question),
+    method: :delete %>
+<% end %>
 
 <h2>Answers</h2>
 
@@ -21,23 +25,28 @@ its `action` attribute. Inspect this form to know more! %>
 </div>
 <% end %> -->
 
-<%= errors_for @answer %>
+<% if user_signed_in? %>
+  <%= errors_for @answer %>
 
-<%= form_for [@question, @answer] do |f| %>
-  <div>
-    <%= f.text_area :body %>
-  </div>
-  <%= f.submit %>
+  <%= form_for [@question, @answer] do |f| %>
+    <div>
+      <%= f.text_area :body %>
+    </div>
+    <%= f.submit %>
+  <% end %>
 <% end %>
 
 <ul class='answer-list'>
 <% @answers.each do |answer| %>
   <li>
     <p><%= answer.body %></p>
+    <p><strong>Commentor: </strong> <%= answer.user&.full_name %></p>
     <p>
       <strong>Created at:</strong> <%= answer.created_at.to_formatted_s(:long) %>
-      <%= link_to 'Delete', question_answer_path(@question, answer),
-        method: :delete, data: { confirm: 'Are you sure?'} %>
+      <% if user_signed_in? %>
+        <%= link_to 'Delete', question_answer_path(@question, answer),
+          method: :delete, data: { confirm: 'Are you sure?'} %>
+      <% end %>
     </p>
     <%# https://apidock.com/rails/ActiveSupport/CoreExtensions/DateTime/Conversions/to_formatted_s %>
   </li>

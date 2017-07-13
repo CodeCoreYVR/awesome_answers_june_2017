@@ -25,6 +25,7 @@ class Question < ApplicationRecord
   #  answers.build(attributes = {}, ...)
   #  answers.create(attributes = {})
   #  answers.create!(attributes = {})
+  belongs_to :user
 
   # we can define validations here, validations will be called before saving
   # or before creating a record and will prevent the saving or creation from

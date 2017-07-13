@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
 
+
+  # Note that we are not using `resources` in this case, because
+  # there should always only be one session. Singular resource will
+  # not create any routes that requires id. Instead, it expects that
+  # it will always be working with the same resource.
+
+  # Even though resource is singular and we gave an argument (i.e. :session)
+  # that is singular, it still expects the controller to be named in plural
+  # (i.e. SessionsController)
+  resource :session, only: [:new, :create, :destroy]
+  resources :users, only: [:new, :create]
+
   # POST /questions/5/answers
 
   # resources :questions, except: [:delete]

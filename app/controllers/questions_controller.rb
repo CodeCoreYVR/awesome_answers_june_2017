@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   # `before_action` can be used to run before any action in a controller.
   # The second argument is a symbol named after the method we would to run.
   # In this example, the before_action calls the find_question before say
@@ -60,6 +61,7 @@ class QuestionsController < ApplicationController
     # byebug
 
     @question = Question.new question_params
+    @question.user = current_user
 
     if @question.save
       # redirect_to question_path(id: @question.id)

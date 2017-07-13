@@ -14,6 +14,7 @@ class Answer < ApplicationRecord
   # build_question(attributes = {})
   # create_question(attributes = {})
   # create_question!(attributes = {})
+  belongs_to :user
 
   validates :body, presence: true
 end

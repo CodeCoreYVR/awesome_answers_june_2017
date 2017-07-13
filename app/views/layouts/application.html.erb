@@ -28,7 +28,31 @@
     <%= link_to('New Question', new_question_path) %>
     |
     <%= link_to('All Questions', questions_path) %>
+    <% if user_signed_in? %>
+      |
+      <span>Hello, <%= current_user.full_name %>!</span>
+      |
+      <%= link_to 'Sign Out', session_path, method: :delete %>
+    <% else %>
+      |
+      <%= link_to 'Sign In', new_session_path %>
+      |
+      <%= link_to 'Sign Up', new_user_path %>
+    <% end %>
     <hr>
+
+
+
+    <% if flash[:notice] %>
+      <div class='alert alert-success'>
+        <%= flash[:notice] %>
+      </div>
+    <% elsif flash[:alert] %>
+      <div class='alert alert-danger'>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

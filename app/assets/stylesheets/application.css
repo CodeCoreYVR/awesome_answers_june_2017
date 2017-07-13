@@ -14,6 +14,20 @@
  *= require_self
  */
 
- .field_with_errors input, .field_with_errors textarea {
-   border: medium solid red;
- }
+.field_with_errors input, .field_with_errors textarea {
+  border: medium solid red;
+}
+
+.alert {
+  border-radius: 5px;
+  padding: 0.5em;
+}
+
+.alert.alert-success {
+  background-color: YellowGreen;
+}
+
+.alert.alert-danger {
+  background-color: Salmon;
+  color: White;
+}
