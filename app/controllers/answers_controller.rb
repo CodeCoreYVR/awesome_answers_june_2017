@@ -20,9 +20,12 @@ class AnswersController < ApplicationController
 
   def destroy
     answer = Answer.find params[:id]
-    answer.destroy
-
-    redirect_to question_path(answer.question)
+    if can?(:destroy, answer)
+      answer.destroy
+      redirect_to question_path(answer.question)
+    else
+      head :unauthorized
+    end
   end
 
   private

@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
 
+  # the `namespace` feature of Rails routes will add the name space as section
+  # of the URL so in this case all routes defined within this `admin` namespace
+  # will be prepended with `/admin` so the url index for `dahsbaord` will be:
+  # /admin/dashboard
+  # also note that the resources for controllers defined within the namespace
+  # will be expected to be in a folder with the same name as the `namespace`
+  # which is `admin` in this case. So dashboard_controller.rb must be located
+  # in a subfolder called `admin` within `/app/controllers`
+  namespace :admin do
+    resources :dashboard, only: :index
+  end
 
   # Note that we are not using `resources` in this case, because
   # there should always only be one session. Singular resource will
@@ -52,7 +63,11 @@ Rails.application.routes.draw do
   # that is defined within the controller.
   # as: :home will generate a URL helper that will gives a view helper method
   # to auto-generate the URL
-  get('/', { to: 'welcome#index', as: :home })
+  # get('/', { to: 'welcome#index', as: :home })
+
+  root 'welcome#index' # this will give you a helper method `root_path` that
+                       # will take you to the home page which is welcome/index
+                       # in our case
 
   get('/contact', { to: 'contact#new' })
   # get '/contact', { to: 'contact#new' }

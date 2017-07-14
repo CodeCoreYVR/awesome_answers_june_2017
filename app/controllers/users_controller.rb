@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       # flash[:notice] = 'Thank you for signing up!'
       # When using `redirect_to`, we can include the flash as an argument
       # instead of writing in a single as above 👆
-      redirect_to home_path, notice: 'Thank you for signing up!'
+      redirect_to root_path, notice: 'Thank you for signing up!'
     else
       # Sometimes we want the flash message to appear in the current request and
       # not the next one. User `flash.now[...]` in that situation.

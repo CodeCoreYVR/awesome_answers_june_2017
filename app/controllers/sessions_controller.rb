@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
       # flash[:notice] = 'Thank you for signing in! ❤️'
-      redirect_to home_path, notice: 'Thank you for signing in! ❤️'
+      redirect_to root_path, notice: 'Thank you for signing in! ❤️'
     else
       flash.now[:alert] = 'Wrong email or password!'
       render :new
@@ -26,6 +26,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to home_path, notice: 'Signed out!'
+    redirect_to root_path, notice: 'Signed out!'
   end
 end

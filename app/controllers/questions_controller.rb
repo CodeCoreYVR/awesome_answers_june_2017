@@ -9,6 +9,8 @@ class QuestionsController < ApplicationController
   # by proving an `only:` argument giving an array symbols named after the actions.
   # There is also `except:`.
 
+  before_action :authorize_user!, only: [:edit, :destroy, :update]
+
   def index
     @questions = Question.order(created_at: :desc)
   end
@@ -91,6 +93,23 @@ class QuestionsController < ApplicationController
 
   def find_question
     @question = Question.find params[:id]
+  end
+
+  # remember that if a `before_action` does `render`, `redirect_to` or `head`
+  # it will stop the request from getting to the action (it will basically halt
+  # the request right there)
+  def authorize_user!
+    # head :unauthorized unless can?(:manage, @question)
+    unless can?(:manage, @question)
+      # redirect_to root_path, alert: 'Access denied'
+
+      # head will send an empty HTTP response, it takes one argument as a symbol
+      # and the argument will tell Rails to send the desired HTTP response code
+      # 	:unauthorized -> 401
+      # you can see more code on this page:
+      # http://billpatrianakos.me/blog/2013/10/13/list-of-rails-status-code-symbols/
+      head :unauthorized
+    end
   end
 end
 
