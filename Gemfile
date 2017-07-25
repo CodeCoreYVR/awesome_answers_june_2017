@@ -39,7 +39,7 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'cancancan', '~> 2.0'
-
+gem 'font-awesome-rails'
 gem 'cowsay'
 
 gem 'faker', github: 'stympy/faker'

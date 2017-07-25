@@ -20,11 +20,14 @@ end
 users = User.all
 
 100.times do
-  Question.create title: Faker::ChuckNorris.fact,
-                  body: Faker::Hacker.say_something_smart,
-                  view_count: rand(1000),
-                  user: users.sample
+  question = Question.create(
+    title: Faker::ChuckNorris.fact,
+    body: Faker::Hacker.say_something_smart,
+    view_count: rand(1000),
+    user: users.sample
+  )
 
+  question.likers = users.shuffle.slice(0..rand(users.count))
 end
 
 questions = Question.all
@@ -43,4 +46,5 @@ answers = Answer.all
 
 puts Cowsay.say("Created #{users.count} users", :tux)
 puts Cowsay.say('Created 100 questions', :cow)
+puts Cowsay.say("Created #{Like.count} likes", :cheese)
 puts Cowsay.say("Created #{answers.count} answers", :ghostbusters)

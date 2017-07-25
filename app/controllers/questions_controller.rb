@@ -44,6 +44,7 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = Answer.new
+    @like = @question.likes.find_by(user: current_user)
     # Using association methods just builds queries, meaning that
     # we can continue chaining more and more query methods such order, limit, offset, where
     # , etc

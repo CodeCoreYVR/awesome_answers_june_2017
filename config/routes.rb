@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   # resources :questions, except: [:delete]
   # resources :questions, only: [:index, :show
   resources :questions do
+    resources :likes, only: [:create, :destroy]
     resources :answers, only: [:create, :destroy]
     # We can nest routes. When doing so, rails will generate the route prefix
     # with the parent resources in this `/questions/:question_id`

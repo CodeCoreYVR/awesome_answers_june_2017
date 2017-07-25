@@ -38,6 +38,14 @@ class Ability
       ans.user == user || ans.question.user == user
     end
 
+    can :like, Question do |question|
+      question.user != user
+    end
+
+    cannot :like, Question do |question|
+      question.user == user
+    end
+
     # remember that this only defines the rules, you still have to enforce the
     # rules yourself by actually using those rules in the controllers and views
     # the advantage is that all of our authoization rules are in one file so we
