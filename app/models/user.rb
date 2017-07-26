@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :votes, dependent: :destroy
+  has_many :voted_answers, through: :votes, source: :answer
+
   has_many :likes, dependent: :destroy
   # has_many's first argument does not have to be another table name. It
   # can be a name of your choosing, but when doing so you must specify details

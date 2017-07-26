@@ -23,6 +23,19 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create]
 
+  # Here we want vote routes to be nested inside of answers without
+  # creating any routes for the answers themselves. This is why we provide
+  # `resources :answers` with the only argument with an empty array.
+
+  # the `shallow: true` argument will only nested routes for those that require it
+  # such `:create`, `:index` and `:new`. All other routes that don't require the
+  # parent resource will be by themselves
+  resources :answers, only: [], shallow: true do
+    resources :votes, only: [:create, :destroy, :update]
+    # /answers/:answer_id/votes
+    # /votes/:id
+  end
+
   # POST /questions/5/answers
 
   # resources :questions, except: [:delete]
