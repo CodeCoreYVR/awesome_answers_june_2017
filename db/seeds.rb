@@ -1,5 +1,6 @@
 PASSWORD = 'supersecret'
 
+Tag.destroy_all
 Answer.destroy_all
 Question.destroy_all
 User.destroy_all
@@ -19,14 +20,21 @@ end
 
 users = User.all
 
+50.times do
+  tag = Tag.create(name: Faker::Book.genre)
+end
+
+tags = Tag.all
+
 100.times do
   question = Question.create(
     title: Faker::ChuckNorris.fact,
     body: Faker::Hacker.say_something_smart,
     view_count: rand(1000),
-    user: users.sample
+    user: users.sample,
   )
 
+  question.tags = tags.shuffle.slice(0..rand(10))
   question.likers = users.shuffle.slice(0..rand(users.count))
 end
 
@@ -45,6 +53,7 @@ end
 answers = Answer.all
 
 puts Cowsay.say("Created #{users.count} users", :tux)
+puts Cowsay.say("Created #{tags.count} tags", :stimpy)
 puts Cowsay.say('Created 100 questions', :cow)
 puts Cowsay.say("Created #{Like.count} likes", :cheese)
 puts Cowsay.say("Created #{answers.count} answers", :ghostbusters)

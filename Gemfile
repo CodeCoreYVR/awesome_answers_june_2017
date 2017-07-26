@@ -41,6 +41,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'cancancan', '~> 2.0'
 gem 'font-awesome-rails'
 gem 'cowsay'
+gem 'jquery-rails'
 
 gem 'faker', github: 'stympy/faker'
 

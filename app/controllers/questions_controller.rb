@@ -80,7 +80,7 @@ class QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, :tag_list)
     # The params object is avaible in all controllers and it gives you
     # access to all the data coming from a form or url params
 

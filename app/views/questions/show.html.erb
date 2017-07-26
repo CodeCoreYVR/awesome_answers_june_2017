@@ -1,7 +1,9 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.body %></p>
 
+<p><strong>Tags: </strong> <%= @question.tag_list %></p>
 <p><strong>Author: </strong> <%= @question.user&.full_name %></p>
+
 
 <div class="like-widget">
   <% if user_signed_in? && can?(:like, @question) %>
