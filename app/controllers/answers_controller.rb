@@ -9,6 +9,7 @@ class AnswersController < ApplicationController
     # answer.question = question
 
     if @answer.save
+      AnswersMailer.notify_questions_owner(@answer).deliver_now
       redirect_to question_path(@question)
     else
       # We can use render to display any template by providing their
