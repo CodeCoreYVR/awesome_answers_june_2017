@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  match "/delayed_job" => DelayedJobWeb, anchor: false, via: [:get, :post]
 
   # the `namespace` feature of Rails routes will add the name space as section
   # of the URL so in this case all routes defined within this `admin` namespace
