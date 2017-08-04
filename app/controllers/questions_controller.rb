@@ -13,6 +13,19 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.order(created_at: :desc)
+
+    # respond_to enables us to send different response types depending on
+    # the format requested
+    respond_to do |format|
+      # `html` is the default format. In this case, render will just show
+      # the view `questions/index.html.erb`
+      format.html { render }
+      # ActiveRecord objects have the `to_json` method. When using `render`
+      # with the `json:` argument with a ActiveRecord object, it will automatically
+      # use the method `to_json` to convert it into json format and send it.
+      format.json { render json: @questions }
+      format.xml { render xml: @questions }
+    end
   end
 
   # The New action is usually used to show a form of

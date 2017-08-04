@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
-  match "/delayed_job" => DelayedJobWeb, anchor: false, via: [:get, :post]
+  # using the defaults argument, we can provide a set of options
+  # that will act as the new defaults for the nested routes.
+  # In this case, every route inside of the api namespace will
+  # render json by default instead of html.
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      # /api/v1/questions
+      resources :questions, only: [:index, :show, :create]
+    end
+  end
 
+  match "/delayed_job" => DelayedJobWeb, anchor: false, via: [:get, :post]
   # the `namespace` feature of Rails routes will add the name space as section
   # of the URL so in this case all routes defined within this `admin` namespace
   # will be prepended with `/admin` so the url index for `dahsbaord` will be:
