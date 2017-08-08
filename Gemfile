@@ -14,6 +14,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'rack-cors'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
