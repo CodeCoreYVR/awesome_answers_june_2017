@@ -13,7 +13,7 @@ class Api::V1::QuestionsController < Api::ApplicationController
     # to O(n**2). Use the `.includes` method on an ActiveRecord to eager load
     # an association. In this case, we eager load users that own a question
     # to display their full names in the json response.
-    @questions = Question.all.includes(:user)
+    @questions = Question.order(created_at: :desc).includes(:user)
     # When using jBuilder to server JSON, make sure that you do
     # not render with `render json: @question`. This would instead serialize
     # @question (transforming into json) and send that as a response.
