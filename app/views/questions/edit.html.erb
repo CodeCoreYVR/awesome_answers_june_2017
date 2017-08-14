@@ -9,31 +9,4 @@ input field with the name `_method` with the value `PATCH`.
 
 In addition, all the fields will be prepopulated with data from the database. %>
 
-<% unless @question.errors.empty? %>
-<div>
-  <%= @question.errors.full_messages.join(', ') %>
-</div>
-<% end %>
-
-<%= form_for @question do |f| %>
-  <div>
-    <%= f.label :title %>
-    <%# f.text_field will generate an `input` html tag with proper
-    `name` attribute which will be `question[title]` in this case. It will
-    also set the value to the input field to whatever Question.new object has
-    preset for that particular attribute (in this case title) %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div>
-    <%= f.label :body %>
-    <%= f.text_area :body %>
-  </div>
-  
-  <div>
-    <%= f.label :tag_list, "Tags (seperated by commas)" %>
-    <%= f.text_field :tag_list %>
-  </div>
-
-  <%= f.submit %>
-<% end %>
+<%= render 'form' %>

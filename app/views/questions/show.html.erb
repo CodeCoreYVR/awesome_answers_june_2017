@@ -41,13 +41,9 @@ its `action` attribute. Inspect this form to know more! %>
 <% end %> -->
 
 <% if user_signed_in? %>
-  <%= errors_for @answer %>
-
-  <%= form_for [@question, @answer] do |f| %>
-    <div>
-      <%= f.text_area :body %>
-    </div>
-    <%= f.submit %>
+  <%= simple_form_for [@question, @answer] do |f| %>
+    <%= f.input :body %>
+    <%= f.button :submit %>
   <% end %>
 <% end %>
 
