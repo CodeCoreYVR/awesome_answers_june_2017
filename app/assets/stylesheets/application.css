@@ -57,3 +57,17 @@
   background-color: Salmon;
   color: White;
 }
+
+.question-details {
+  display: flex;
+  flex-flow: row;
+}
+
+
+
+
+
+
+
+
+/* */
