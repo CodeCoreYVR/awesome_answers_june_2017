@@ -13,4 +13,5 @@
 //= require jquery3
 //= require vendor/selectize.min
 //= require jquery_ujs
+//= require cocoon
 //= require_tree .

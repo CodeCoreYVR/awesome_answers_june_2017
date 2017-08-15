@@ -12,7 +12,7 @@ class QuestionsController < ApplicationController
   before_action :authorize_user!, only: [:edit, :destroy, :update]
 
   def index
-    @questions = Question.order(created_at: :desc)
+    @questions = Question.viewable
 
     # respond_to enables us to send different response types depending on
     # the format requested

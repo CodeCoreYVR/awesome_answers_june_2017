@@ -10,6 +10,7 @@ class AnswersController < ApplicationController
 
     if @answer.save
       AnswersMailer.notify_questions_owner(@answer).deliver_now
+      @question.answer! if @question.may_answer? # change the state of the question to `answered`
       redirect_to question_path(@question)
     else
       # We can use render to display any template by providing their
@@ -21,8 +22,10 @@ class AnswersController < ApplicationController
 
   def destroy
     answer = Answer.find params[:id]
+    question = answer.question
     if can?(:destroy, answer)
       answer.destroy
+      question.publish! if question.answers.count == 0
       redirect_to question_path(answer.question)
     else
       head :unauthorized

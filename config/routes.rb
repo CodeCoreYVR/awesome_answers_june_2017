@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   # in a subfolder called `admin` within `/app/controllers`
   namespace :admin do
     resources :dashboard, only: :index
+    resources :survey_questions, only: [:index, :new, :create]
   end
 
   # Note that we are not using `resources` in this case, because
@@ -65,6 +66,9 @@ Rails.application.routes.draw do
     # as question_answers_path (or question_answers_url), you
     # must provide an id or record of the parent resources
     # (e.g. `question_answers_path(@question)`)
+
+
+    resources :publishings, only: :create
   end
   # resources :questions will generate all CRUD routes just like
   # we wrote below for a given resource name. Make sure that you write

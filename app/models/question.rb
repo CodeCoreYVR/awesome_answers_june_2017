@@ -71,6 +71,39 @@ class Question < ApplicationRecord
   # usage:
   # question.tag_list = 'some,thing,etc'
 
+  include AASM
+
+  # DSL: Domain Specific Language, it's Ruby code written in a certain way that
+  #      seems like it's own language to serve a purpose (in this case defining
+  #      the state machine rules)
+  aasm whiny_transitions: false do
+    state(:draft, { initial: true })
+    state :published
+    state :canceled
+    state :answered
+    state :closed
+
+    event :publish do
+      transitions from: [:draft, :answered], to: :published
+    end
+
+    event :close do
+      transitions from: [:published, :answered], to: :closed
+    end
+
+    event :cancel do
+      transitions from: [:published, :answered], to: :canceled
+    end
+
+    event :answer do
+      transitions from: [:published, :answered], to: :answered
+    end
+  end
+
+  def self.viewable
+    where(aasm_state: [:published, :closed, :answered]).order(created_at: :desc)
+  end
+
   private
 
   def no_monkey
