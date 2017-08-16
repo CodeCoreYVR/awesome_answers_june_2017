@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       # /api/v1/questions
       resources :questions, only: [:index, :show, :create]
+      resources :tokens, only: [:create]
     end
   end
 
