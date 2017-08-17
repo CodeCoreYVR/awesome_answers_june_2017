@@ -15,6 +15,8 @@ class User < ApplicationRecord
   # after `has_many :likes`.
   has_many :liked_questions, through: :likes, source: :question
 
+  has_many :survey_questions, dependent: :destroy
+
   # has_secure_password is a built-in rails method that provides
   # use authentication features for the model its called in
   # 1. It will automatically add a presence validator for the password field
@@ -39,6 +41,9 @@ class User < ApplicationRecord
   validates :first_name, :last_name, presence: true
 
   before_create :generate_api_key
+
+  geocoded_by :address
+  after_validation :geocode
 
   def full_name
     "#{first_name} #{last_name}"

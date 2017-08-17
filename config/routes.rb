@@ -34,7 +34,9 @@ Rails.application.routes.draw do
   # that is singular, it still expects the controller to be named in plural
   # (i.e. SessionsController)
   resource :session, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create]
+  resources :users, only: [:new, :create, :show]
+
+  resources :user_maps, only: [:index]
 
   # Here we want vote routes to be nested inside of answers without
   # creating any routes for the answers themselves. This is why we provide
