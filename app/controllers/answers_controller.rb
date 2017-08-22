@@ -8,27 +8,35 @@ class AnswersController < ApplicationController
     # answer = Answer.new(answer_params)
     # answer.question = question
 
-    if @answer.save
-      AnswersMailer.notify_questions_owner(@answer).deliver_now
-      @question.answer! if @question.may_answer? # change the state of the question to `answered`
-      redirect_to question_path(@question)
-    else
-      # We can use render to display any template by providing their
-      # beginning from the `views/` folder.
-      @answers = @question.answers.order(created_at: :desc)
-      render 'questions/show'
+    respond_to do |format|
+      if @answer.save
+        # AnswersMailer.notify_questions_owner(@answer).deliver_now
+        @question.answer! if @question.may_answer? # change the state of the question to `answered`
+        format.html { redirect_to question_path(@question) }
+        format.js { render :create_success }
+      else
+        # We can use render to display any template by providing their
+        # beginning from the `views/` folder.
+        @answers = @question.answers
+        format.html { render 'questions/show' }
+        format.js { render :create_failure }
+      end
     end
   end
 
   def destroy
-    answer = Answer.find params[:id]
-    question = answer.question
-    if can?(:destroy, answer)
-      answer.destroy
-      question.publish! if question.answers.count == 0
-      redirect_to question_path(answer.question)
-    else
-      head :unauthorized
+    @answer = Answer.find params[:id]
+    @question = @answer.question
+
+    respond_to do |format|
+      if can?(:destroy, @answer)
+        @answer.destroy
+        @question.publish! if @question.answers.count == 0
+        format.html { redirect_to question_path(@answer.question) }
+        format.js { render }
+      else
+        head :unauthorized
+      end
     end
   end
 

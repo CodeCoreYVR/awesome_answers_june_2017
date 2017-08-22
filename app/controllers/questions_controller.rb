@@ -61,7 +61,7 @@ class QuestionsController < ApplicationController
     # Using association methods just builds queries, meaning that
     # we can continue chaining more and more query methods such order, limit, offset, where
     # , etc
-    @answers = @question.answers.order(created_at: :desc)
+    @answers = @question.answers
   end
 
   # The Create action is used to handle form submissions from the New

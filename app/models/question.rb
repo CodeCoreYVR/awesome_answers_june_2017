@@ -8,7 +8,12 @@ class Question < ApplicationRecord
 
   # Like `belongs_to`, `has_many` tells Rails that Question is associated to
   # the Answer model.
-  has_many :answers, dependent: :destroy
+
+  # We can pass a lambda as a second argument to an `has_many` method to
+  # apply query on every call of the association. Here we use it to always
+  # order questions by the time they were created. A lambda is ruby's version
+  # of anonymous inline function.
+  has_many :answers, -> () { order(created_at: :desc) }, dependent: :destroy
   # `dependent: :destroy` will delete all associated answers to the question
   # before the question is deleted.
 
