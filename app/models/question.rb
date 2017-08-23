@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  attr_accessor :tweet_this
+
   mount_uploader :image, ImageUploader
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings

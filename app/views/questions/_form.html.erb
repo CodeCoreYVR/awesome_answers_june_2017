@@ -23,6 +23,12 @@ variable is declared in the controller action that eventually loads it %>
   </div>
 
   <%= f.input :image %>
+  <% if current_user.provider == 'twitter' && @question.new_record? %>
+    <%= f.input :tweet_this,
+      as: :boolean,
+      checked_value: true,
+      unchecked_value: false %>
+  <% end %>
 
   <%= f.button :submit %>
 <% end %>

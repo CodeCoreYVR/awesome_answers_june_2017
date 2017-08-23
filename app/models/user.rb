@@ -70,6 +70,15 @@ class User < ApplicationRecord
     User.find_by(provider: omniauth_data["provider"], uid: omniauth_data["uid"])
   end
 
+  def update_oauth_credentials(omniauth_data)
+    token = omniauth_data["credentials"]["token"]
+    secret = omniauth_data["credentials"]["secret"]
+
+    if oauth_token != token || oauth_secret != secret
+      self.update oauth_token: token, oauth_secret: secret
+    end
+  end
+
   def from_omniauth?
     uid.present? && provider.present?
   end

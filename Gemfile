@@ -35,6 +35,7 @@ gem 'jwt'
 gem 'aasm'
 gem 'cocoon'
 gem 'omniauth-twitter'
+gem 'twitter'
 gem 'geocoder'
 
 gem 'gmaps4rails'

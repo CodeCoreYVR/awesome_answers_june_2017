@@ -80,6 +80,18 @@ class QuestionsController < ApplicationController
     @question.user = current_user
 
     if @question.save
+      if @question.tweet_this == "true"
+        client = Twitter::REST::Client.new do |config|
+          config.consumer_key        = ENV['TWITTER_API_KEY']
+          config.consumer_secret     = ENV['TWITTER_API_SECRET']
+          config.access_token        = current_user.oauth_token
+          config.access_token_secret = current_user.oauth_secret
+        end
+
+        client.update "#{@question.title.slice(0..255)}"
+        flash[:notice] = "Question tweeted! 🐦"
+      end
+
       QuestionReminderJob.set(wait: 5.days).perform_later(@question.id)
       # redirect_to question_path(id: @question.id)
       # redirect_to question_path(@question.id)
@@ -94,7 +106,7 @@ class QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:title, :body, :tag_list, :image)
+    params.require(:question).permit(:title, :body, :tag_list, :image, :tweet_this)
     # The params object is avaible in all controllers and it gives you
     # access to all the data coming from a form or url params
 
