@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170817202845) do
+ActiveRecord::Schema.define(version: 20170823170605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,8 +106,14 @@ ActiveRecord::Schema.define(version: 20170817202845) do
     t.string "address"
     t.float "longitude"
     t.float "latitude"
+    t.string "uid"
+    t.string "provider"
+    t.string "oauth_token"
+    t.string "oauth_secret"
+    t.text "oauth_raw_data"
     t.index ["api_key"], name: "index_users_on_api_key"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid"
   end
 
   create_table "votes", force: :cascade do |t|

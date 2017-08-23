@@ -34,7 +34,7 @@ gem 'fog'
 gem 'jwt'
 gem 'aasm'
 gem 'cocoon'
-
+gem 'omniauth-twitter'
 gem 'geocoder'
 
 gem 'gmaps4rails'

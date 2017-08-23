@@ -242,6 +242,7 @@ GEM
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     gmaps4rails (2.1.2)
+    hashie (3.5.5)
     hirb (0.7.3)
     i18n (0.8.4)
     inflecto (0.0.2)
@@ -282,6 +283,16 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    oauth (0.5.2)
+    omniauth (1.6.1)
+      hashie (>= 3.4.6, < 3.6.0)
+      rack (>= 1.6.2, < 3)
+    omniauth-oauth (1.1.0)
+      oauth
+      omniauth (~> 1.0)
+    omniauth-twitter (1.4.0)
+      omniauth-oauth (~> 1.1)
+      rack
     pg (0.21.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -407,6 +418,7 @@ DEPENDENCIES
   letter_opener
   listen (>= 3.0.5, < 3.2)
   mini_magick
+  omniauth-twitter
   pg (~> 0.18)
   pry
   puma (~> 3.7)

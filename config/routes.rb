@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  get "/auth/twitter", as: :sign_in_with_twitter
+  get "/auth/:provider/callback", to: "callbacks#index"
+
   # using the defaults argument, we can provide a set of options
   # that will act as the new defaults for the nested routes.
   # In this case, every route inside of the api namespace will
